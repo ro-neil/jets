@@ -62,10 +62,12 @@ const Register = {
                   <input type="password" name="password" class='form-control' id='password-field' required/>
                 </div>
               </div>
-              <div class="form-group d-flex align-items-center justify-content-center mt-2">
+
+              <!--<div class="form-group d-flex align-items-center justify-content-center mt-2">
                 <input type="checkbox" name="isAdmin" class='form-control' id='isAdminCheckbox'/>
                 <label for="isAdmin" class="" id='adminAccountLbl'>Admin Account</label>
-              </div>
+              </div>-->
+
               <button type="submit" name="submit-btn" class="btn submit-button py-1 mx-auto mt-3">Submit</button>
             </form>
           </section>
@@ -93,17 +95,10 @@ const Register = {
   created() {
     let self = this;
     if (isLoggedIn()){
-      if (JSON.parse(sessionStorage.getItem('jets_user')).isAdmin === 'False'){
-        let message = 'You are not authorized to register an account.';
-        sessionStorage.setItem('flash', message);
-        console.log(message);
-        this.$router.push('/accountSettings');
-      }
+      this.$router.push('/logout');
     } else {
-      this.$router.push('/login');
-      let message = 'Sign in as an admin to register an account.';
-      sessionStorage.setItem('flash', message);
-      console.log(message);
+      logoutNav();
+      flashMessage(this);
     }
   },
   methods: {
@@ -127,27 +122,26 @@ const Register = {
         return response.json();
       })
       .then(function (jsonResponse) {
-        if (jsonResponse['error']){
-          self.displayFlash = true;
-          self.flashMessage = jsonResponse['error'];
-          setTimeout(function() { 
-              self.displayFlash = false;
-          }, 3000);
+        if (jsonResponse['token']){
+          if (typeof(Storage) !== "undefined") {
+            sessionStorage.setItem('jets_token', jsonResponse['token']);
+            sessionStorage.setItem('jets_user', JSON.stringify(jsonResponse['user']));
+          } else {
+            console.log('No Web Storage support..');
+          }
+          self.$router.push('/flagged');
+          sessionStorage.setItem('flash',`Welcome, ${jsonResponse['user'].name}`);
+          document.getElementById('username').innerHTML = jsonResponse['user'].name
         } else {
-            self.$router.push('/accountSettings');
-            self.user_data = jsonResponse;
-            console.log('Username: ' + jsonResponse['username']);
-            let flash = ''
-            if(jsonResponse['username']){
-              flash = `${jsonResponse['username']} was registered`
-            } else {
-              flash = jsonResponse['message']
+            if (jsonResponse['error']){
+              self.displayFlash = true;
+              self.flashMessage = jsonResponse['error'];
+              setTimeout(function() { 
+                  self.displayFlash = false;
+              }, 3000);
             }
-            
-            sessionStorage.setItem('flash',flash);
-            console.log(flash);
-        }
-          console.log(jsonResponse);
+          }
+        console.log(jsonResponse);
       })
       .catch(function (error) {
           console.log(error);
@@ -198,7 +192,12 @@ const Login = {
                 </div>
               </div>
               <button type="submit" name="submit-btn" class="btn submit-button py-1 mx-auto mt-3">Sign in</button>
+              
             </form>
+            <div class='d-flex ml-5'>
+              <p class='mr-2 ml-4'>Don't have an account?</p>
+              <router-link class="" to="/register">Register</router-link>
+            </div>
           </section>
           <section id='app-name-section' class='d-flex justify-content-center'>
             <div class='d-flex flex-column justify-content-center'>
@@ -2139,8 +2138,8 @@ const NotFound = {
   template: `
   <div class="not-found mt-5">
     <h1>404</h1>
-    <p>That page doesn't even exist.</p>
-    <p>Why don't you just <router-link to="/">go back notifications</router-link></p>
+    <p>That page doesn't exist.</p>
+    <p>Why don't you just go back to the <router-link to="/">notifications page</router-link> ?</p>
   </div>
 
   `,
@@ -2150,7 +2149,7 @@ const NotFound = {
   created(){
     if (isLoggedIn()){
       loginNav();
-    }
+    } 
   },
   methods: {
   }

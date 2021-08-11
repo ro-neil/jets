@@ -69,49 +69,48 @@ def requires_auth(f):
 ###
 
 @app.route("/api/register", methods=["POST"])
-@login_required
-@requires_auth
+# @login_required
+# @requires_auth
 def register():
     """ Register a user """
-    if current_user.is_admin():
 
-        form = RegistrationForm()
+    form = RegistrationForm()
 
-        if form.validate_on_submit():
-            # include security checks #
+    if form.validate_on_submit():
+        # include security checks #
 
-            username = request.form['username']
-            if User.query.filter_by(username=username).first(): # if username already exist
-                response = jsonify({'error':'Try a different username or contact the administrator.'})
-                return response
-
-            password = request.form['password']
-
-            try:
-                isAdmin = request.form['isAdmin']
-                if isAdmin == 'on':
-                    isAdmin = 'True'
-            except KeyError:
-                print('\nUser is not an admin')
-                isAdmin = 'False'
-
-            user = User(username, password, isAdmin)
-
-            db.session.add(user)
-            db.session.commit()
-
-            # convert sqlalchemy user object to dictionary object for JSON parsing
-            data = obj_to_dict(user)
-            data.pop('password')
-            data.pop('salt')
-            response = jsonify(data)
+        username = request.form['username']
+        if User.query.filter_by(username=username).first(): # if username already exist
+            response = jsonify({'error':'Try a different username or contact the administrator.'})
             return response
-        else:
-            response = jsonify(form.errors)
-            return response
-    else:
-        response = jsonify(message='You are unauthorized')
+
+        password = request.form['password']
+
+        user = User(username, password, 'False')
+
+        db.session.add(user)
+        db.session.commit()
+
+        login_user(user)
+        payload = {
+            "sub": "352741018090",
+            "name": username,
+            "issue": current_datetime(SYS_DATETIME_FORMAT)
+        }
+        encoded_jwt = jwt.encode(payload, app.config['SECRET_KEY'], algorithm='HS256')
+        response = jsonify({"message": "Login Successful", 'token':encoded_jwt, 'user':{'id':user.id, 'name':user.username, 'isAdmin':user.isAdmin}}) # Hash user_id before sending
         return response
+
+        # # convert sqlalchemy user object to dictionary object for JSON parsing
+        # data = obj_to_dict(user)
+        # data.pop('password')
+        # data.pop('salt')
+        # response = jsonify(data)
+        # return response
+    else:
+        response = jsonify(form.errors)
+        return response
+ 
 
 @app.route("/api/deregister", methods=["GET"])
 @login_required
