@@ -1363,8 +1363,9 @@ def reset_uploads_dir():
         print('\nMoving files from flagged folder to uploads folder')
         # Move files from flagged folder to uploads folder
         for file in files:
-            print(f'\t{file}')
-            os.rename(os.path.join(flagged, file), os.path.join(uploads, file))
+            if file != '.gitkeep':
+                print(f'\t{file}')
+                os.rename(os.path.join(flagged, file), os.path.join(uploads, file))
     else:
         print(f'\nFlagged folder is empty!')  
 
@@ -1374,8 +1375,9 @@ def reset_uploads_dir():
         print('\nMoving files from issued folder to uploads folder')
         # Move files from issued folder to uploads folder
         for file in files:
-            print(f'\t{file}')
-            os.rename(os.path.join(issued, file), os.path.join(uploads, file))
+            if file != '.gitkeep':
+                print(f'\t{file}')
+                os.rename(os.path.join(issued, file), os.path.join(uploads, file))
         print('\nMoved files from issued folder to uploads folder')
     else:
         print(f'\nIssued folder is empty!')  
