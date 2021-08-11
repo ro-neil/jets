@@ -879,7 +879,7 @@ def issueFlaggedEmail():
     trn = currentTicket['vehicleOwner']['trn'].replace(" ", "") # Remove spaces from formatted trn
     imgName = incident['image'].split('/')[-1]
 
-    sendEmail(f'http://localhost:8080/issued/{incidentID}',[emailAddress])
+    #sendEmail(f'http://localhost:8080/issued/{incidentID}',[emailAddress])
     ticketStatus = f"ISSUED VIA ({emailAddress})"
     print(f"\nTICKET STATUS: {ticketStatus}")
     # Create the Ticket and save to JETS' Database/Ticket table
