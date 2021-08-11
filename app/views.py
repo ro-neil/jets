@@ -1407,6 +1407,9 @@ def getFilenames(path):
 
     files = []
     for (dirpath, dirnames, filenames) in os.walk(path):
+        print('Filenames', filenames)
+        print('Dir path', dirpath)
+        print('Dir names', dirnames)
         files.extend(filenames)
         return files
 
