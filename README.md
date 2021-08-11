@@ -1,2 +1,2 @@
-# jets
-A simulated version of The JamaicaEye Ticketing System (JETS). 
+# The JamaicaEye Ticketing System (JETS)
+Promotional simulation
