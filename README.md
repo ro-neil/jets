@@ -2,8 +2,7 @@
 Promotional simulation
 
 # The University of the West Indies (Mona)
-Capstone Project
-Team JETS
+# Capstone Project `Team JETS`
 Summer (2021)
 
 Create a virtual environment and install the packages in your requirements file
