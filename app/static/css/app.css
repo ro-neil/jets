@@ -1,0 +1,791 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;600;700;800;900&family=Poppins&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Wallpoet&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Libre+Barcode+128+Text&family=Wallpoet&display=swap');
+
+:root {
+    --color-1: #2e294e;
+    --color-2: #E4b363;
+    --color-3: #048a81;
+    --whitespace: #f9f9f9;
+    --red: #e63946;
+
+    --white: #FDFFFC;
+    --navbar: rgb(25, 62, 97);
+    --accent1: rgba(240, 58, 71,0.36); /*#F03A47;*/
+    --accent2: #EFF5FB;
+    --textColor1: #FDFFFC;
+    --textColor2: #101010;
+    --tableColor: #112A41;
+    --tableHover: #1B2E3F;
+    --accentBorder: #DEE2E6;
+    --primaryFont: 'Nunito', 'Poppins', sans-serif;
+    --secondaryFont: 'Wallpoet', cursive;
+    --tertiaryFont: 'Libre Barcode 128 Text', cursive, 'Nunito';
+
+    --bounceEasing: cubic-bezier(0.51, 0.92, 0.24, 1.15);
+}
+.alert.table-alert{
+    position: absolute;
+    left: 30rem;
+    bottom: 16.2rem;
+}
+body {
+    box-sizing: border-box;
+    margin: 0;
+    font-family: var(----primaryFont);
+    background-color: var(--whitespace);
+    font-size: 15px;
+}
+
+#website-name{
+    font-weight:600;
+    font-size: 20px;
+    color: var(--textColor1);
+    
+}
+
+#jets{
+    font-family: var(--secondaryFont);
+}
+
+#jets-long{
+    font-family: var(--tertiaryFont);
+    font-size:  1rem;
+}
+
+.nav-item.dynamic-link{
+    padding-left: 3rem;
+    font-weight: 600;
+}
+.nav-link {
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+#logged-in .nav-link{
+    color: var(--whitespace) !important;
+    font-size: 13px;
+    padding-right: 0 !important;
+    transition: opacity 0.4s;
+}
+
+#logged-in .nav-link:hover{
+    opacity: 0.65;
+}
+
+#user-menu{
+    font-size: 13px;
+}
+#user-menu .nav-link.username{
+    color: var(--whitespace) !important;
+    padding-right: 0 !important;
+    transition: opacity 0.4s;
+}
+#user-menu:hover .nav-link.username{
+    opacity: 0.75;
+}
+
+.dropdown-arrow{
+    width: 24px;
+    height: 24px;
+}
+.dropdown-content {
+    display: none;
+    position: absolute;
+    min-width: 190px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    right: 0.5rem;
+    background-color: var(--white);
+}
+.dropdown-content .nav-link {
+    color: black !important;
+    display: block;
+    transition: padding-left 0.5s, background-color 0.8s, color 0.5s;
+    padding: 0.7rem;
+}
+
+
+.dropdown-content .account-settings {
+    background-color: rgba(25, 62, 97,0.1);
+}
+
+.account-settings > svg{
+    transition: width 0.5s, height 0.5s;
+}
+.dropdown-content:hover .account-settings > svg {
+    fill: white;
+    height:  5rem;
+    width:  5rem;
+}
+.dropdown-content:hover .account-settings {
+    background-color: rgba(25, 62, 97,0.8);
+    padding-left: 1rem;
+    color: white !important;
+    flex-direction: column;
+}
+
+.dropdown-content .logout-btn:hover {
+    background-color: var(--navbar);
+    padding-left: 1rem;
+    color: white !important;
+}
+.dropdown-content .logout-btn:hover > svg {
+    fill: white;
+}
+
+.username:hover + .dropdown-content {   /* Change to .username:focus for an 'on-click'-like event */
+    display: block;
+    color: black;
+}
+
+.dropdown-content:hover{
+    display: block;
+    color: black;
+}
+
+.btn{
+    background-color: var(--navbar);
+    font-weight: 700;
+    font-size: 12px;
+    height: 32px;
+    color: black;
+    border:  1px solid rgba(25, 62, 97,0.25);
+}
+.simulate-btn, .issue-btn {
+    background-color: var(--accent1);
+    min-width: 7rem !important;
+}
+.simulate-btn:hover, .issue-btn:hover, .archive-btn:hover{
+    opacity:  0.9;
+    background-color: unset;
+    border:  1px solid black;
+}
+.archive-btn{
+    background-color: rgba(25, 62, 97,0.2);
+    min-width: 7rem !important;
+}
+.print-btn{
+    background-color: var(--white);
+    min-width: 7rem !important;
+}
+.print-btn:hover{
+    opacity:  0.95;
+    background-color: var(--accent2);
+    border:  1px solid black;
+}
+.reset-btn{
+    background-color: rgba(25, 62, 97,0.2);
+    min-width: 7rem !important;
+}
+.reset-btn:hover{
+    opacity:  0.95;
+    background-color: var(--whitespace);
+    border:  1px solid black;
+}
+.modal-btn{
+    background-color: var(--navbar);
+    min-width: 7rem !important;
+    color: var(--whitespace);
+}
+.modal-btn:hover{
+    opacity:  0.95;
+}
+label{
+    font-weight: bold;
+    margin-bottom: unset !important;
+}
+
+
+
+/* FORM INPUTS */
+
+input /*[type='text'], input[type='search'], select, textarea*/{
+    color:#39393a;
+    font-weight: 500;
+    border-radius: 5px;
+    padding:10px;
+    border:1px solid rgba(25, 62, 97,0.2);
+    box-shadow:0 0 4px 4px rgba(227, 231, 234, 0.03);
+    border-radius: 4px;    
+}
+
+input[type='file'] {
+    font-weight: 500;
+    width: 18rem !important;
+    font-size: 13px;
+}
+input:focus /*, input[type='text']:focus, input[type='password']:focus, textarea:focus*/{
+    outline-style:solid;
+    outline-width: 1px;
+    outline-color: rgb(25, 62, 97, 0.1);
+    box-shadow: 0px 2px 2px 0px rgba(25, 62, 97, 0.1) !important;
+}
+input[type='text'], input[type='search'], input[type='password']{
+    height: 30px;
+    font-size: 13px;
+    width: 18rem !important;
+    font-weight: 500;
+}
+input[type='text']:valid, input[type='search']:valid, input[type='password']:valid{
+    background-color: rgba(25, 62, 97, 0.1) !important;
+}
+
+select{
+    width: 18rem !important;
+    height: 30px !important;
+    font-size: 13px !important;
+    font-weight: 500;
+}
+
+/* FORM INPUTS */
+
+#manualIssueForm{
+    width: 100% !important;
+}
+
+#manualIssueForm label{
+    font-weight: 500 !important;
+}
+
+#manualIssueForm button {
+    color: white;
+}
+
+/* SIGN IN PAGE */
+
+
+.login-page, .registration-page{
+    background-color: unset !important;
+}
+.login-page .alert{
+    position: absolute;
+    width: 25%;
+}
+.login-frame, .registration-frame{
+    width: 75%;
+}
+.login-frame button, .registration-frame button{
+    background-color: rgba(25, 62, 97,0.9);
+    color:  var(--whitespace);
+    width: 8rem !important;
+    transition: background-color 0.5s;
+}
+.login-frame button:hover, .registration-frame button: hover{
+    background-color: rgba(25, 62, 97,0.95);
+}
+#sign-in-section, #register-user-section{
+    background-color: var(--whitespace);
+    border-radius: 20px 0 0 20px;
+    width: 55%;
+}
+#register-user-section{
+    padding: 1.5rem 0 0 1.5rem;
+    border-radius: 10px 0 0 10px;
+    border: 1px solid rgba(127, 129, 137,0.5);
+}
+#sign-in-section label, #register-user-section label{
+    font-size: 13px;
+}
+.jets-name{
+    font-weight: 900;
+    color: var(--navbar);
+    letter-spacing: 2px;
+    font-weight: 16px;
+}
+.sign-in-text{
+    font-size: 24px;
+    font-weight: 700;
+}
+#loginForm, #registrationForm{
+    padding: 5rem;
+}
+
+#loginForm input[type='text'], #registrationForm input[type='text'], input[type='password'] {
+    height: 34px;
+    font-size: 13px;
+    width: 100%;
+}
+.login-app-name{
+    font-family: var(--tertiaryFont);
+    font-size: 3rem;
+    margin: unset;
+}
+#app-name-section{
+    background-color: var(--navbar);
+    color: var(--textColor1);
+    padding: 2rem 0;
+    border-radius: 0 20px 20px 0;
+    width: 45%;
+}
+
+.form-container{
+    background-color: var(--whitespace);
+    border-radius: 20px 0 0 20px;
+}
+
+#visibility-icon{
+    width: 1.3rem;
+}
+#password-field{
+    letter-spacing: 0.35rem;
+}
+
+/* END SIGN IN PAGE */
+
+#content-body{
+    margin-top: 5rem;
+}
+
+main.container{
+    margin-left: 2rem !important;
+    margin-right: 2rem !important;
+}
+.flash-msgs{
+    padding-top:15px;
+    margin-bottom:1rem;
+    text-align:center;
+}
+
+.navbar{
+    background-color: var(--navbar);
+}
+
+.navbar-collapse{
+    flex-grow: unset !important; 
+}
+#navbarSupportedContent li{
+    font-size: 13px;
+    font-weight: bold;
+}
+
+#search-btn-label:hover{
+    cursor: pointer;
+}
+
+#search-icon{
+
+}
+#searchbar{
+    width: 14rem !important;
+}
+.table td, .table th {
+    padding-left: 2rem;
+}
+table thead th{
+    border-top: 1px solid var(--accentBorder);
+    border-bottom: unset;
+
+}
+table thead {
+    background-color: var(--accent2);
+    border: 1px solid var(--accentBorder);
+}
+
+table tbody th{
+    border-top: unset !important;
+    border-bottom: 1px solid var(--textColor1);
+}
+tbody tr:last-child th, #offenders-table tbody tr:last-child td{
+    border-bottom: 1px solid var(--tableColor) !important;
+}
+table tbody tr > th{
+    border-left: 1px solid var(--tableColor) !important;
+}
+table tbody tr td:last-child{
+    border-right: 1px solid var(--tableColor) !important;
+}
+table tbody {
+    background-color: var(--tableColor);
+    color: var(--textColor1);
+}
+table td{
+    border-top: unset !important;
+    border-bottom: 1px solid var(--textColor1);
+}
+tbody tr{
+    font-size: 12px;
+}
+table tbody tr:hover{
+    cursor: pointer;
+    background-color: var(--tableHover);
+}
+#avg-offence-table-body tr:hover{
+    cursor: default;
+}
+#avg-offence tr *:last-child{
+    /*padding-left: 10rem !important;*/
+}
+footer{
+    background-color: var(--navbar) !important;
+    color: var(--white);
+    font-size: 13px;
+}
+
+/* TRAFFIC TICKET */
+#ticket-page-container{
+    margin-left: 8rem;
+    margin-right: 8rem;
+}
+.status-bar{
+    border: 2px solid black;
+    width: fit-content;
+    border-bottom: unset;
+    background-color: #c4c4c4;
+    padding-right: 1.4rem;
+    font-size: 1.2rem;
+}
+.status-bar > h2{
+    font-size: 1.3rem;
+    font-weight: 600;
+    color:  var(--navbar); 
+    padding-left: 1.4rem;
+}
+.ticket{
+    border: 2px solid black;
+    background-color: #c4c4c4;
+}
+.ticket-header{
+    background-color: rgba(25, 62, 97,0.7);
+    height: 5rem;
+
+}
+.ticket-header h1{
+    font-size: 2rem;
+    font-weight: 700;
+    color:  var(--white);
+}
+.ticket-header h2{
+    font-size: 1.1rem;
+    font-weight: 600;
+    color:  var(--white);
+}
+
+.ticket-header > img{ /*Coat of arms*/
+    width: 3.5rem;
+    height: 3.2rem;
+    margin: 8px 1.5rem 0 1.5rem;
+
+}
+.ticket-header-headings{
+    height: 3.2rem;
+}
+.ticket h3{
+    font-size: 1.2rem;
+    text-align: center;
+    margin: 1rem 0;
+    font-weight: 600;
+}
+.ticket section{
+    border-top: 1px solid black;
+}
+.ticket h4{ /*ticket field title*/
+    font-size: 0.9rem;
+    font-weight: 800;
+    color: var(--navbar);
+    margin-bottom: 3px;
+}
+.ticket p{
+    font-weight: 700;
+    margin: 0;
+    font-size: smaller;
+}
+.ticket-row{
+    display: flex;
+    border-top: 1px solid black;
+    justify-content: space-between;
+    background-color: var(--white);
+}
+.ticket-field{
+    border-left: 1px solid black;
+    padding: 0.6rem 2rem 0.6rem 1.3rem;
+    display: flex;
+    flex-direction: column;
+    /*min-width: 20%;*/
+}
+.ticket-field:first-child{
+    border-left: unset;
+    align-self: left;
+}
+.ticket-field{
+    min-width: 18%;
+}
+.ticket-row.bio .ticket-field{
+    max-width: 20%;
+}
+.ticket-row.drivers-license .ticket-field, .ticket-row.vehicle .ticket-field{
+    max-width: 25%;
+
+}
+.ticket-row.offence-1 .ticket-field, .ticket-row.tax-auth .ticket-field, .ticket-row.official-use .ticket-field{
+    min-width: 33%;
+}
+.ticket-row.address .ticket-field{
+    max-width: 50%;
+}
+.ticket-field.offence-desc{
+    min-width: 50%;
+}
+#snapshot-container{
+    height: 35rem;
+}
+#snapshot-container > img{
+    border-top: 1px solid black;
+    width: 100%;
+    height: 100%;
+}
+.ticket{
+    margin-bottom: 7rem;
+}
+
+
+/* END TRAFFIC TICKET */
+
+
+#manual-submit-btn:hover{
+    opacity: 0.95;
+}
+
+
+/* ACCOUNT SETTINGS */
+
+#change-password-btn{
+    background-color: var(--whitespace);
+    width: fit-content;
+}
+
+#td-password{
+    padding-top: 1.3rem;
+}
+
+#change-password-btn:hover{
+    opacity: 0.9;
+}
+
+#account-table-body > tr:hover{
+    cursor: unset;
+    background-color: unset;
+}
+
+#change-password-form label {
+    font-weight: 700;
+}
+#old-password-field, #new-password-field{
+    width: 100% !important;
+}
+.modal-footer button{
+    transition: background-color 0.4s, color 0.5s, opacity 0.3;
+}
+.modal-footer .save-btn {
+    background-color: var(--navbar);
+    color: var(--whitespace);
+}
+.modal-footer .save-btn:hover {
+    background-color: var(--whitespace);
+    color: black;
+}
+
+.modal-title{
+    color: var(--navbar);
+}
+
+.save-btn svg{
+    margin-right: 0.7rem;
+    transition: fill 0.5s;
+}
+.save-btn:hover svg{
+    fill: black;
+}
+
+#um-container div {
+    padding: 0.8rem 1.3rem;
+    min-width: 18rem;
+    font-weight: 700;
+    font-size: 14px;
+    border-left: 1px solid;
+    border-right: 1px solid;
+    border-bottom: 1px solid;
+    border-color: rgba(25, 62, 97, 0.2);
+}
+#um-container div:last-child  {
+    border-radius: 0 0 0.8rem 0.8rem;
+}
+#um-container{
+    height: 85vh;
+    background-color: #E3E7EA;
+}
+
+#um-container .border{
+    background-color: var(--whitespace);
+}
+#um-container .heading{
+    background-color: var(--navbar);
+    color: var(--whitespace);
+    border-radius: 0.8rem 0.8rem 0 0;
+    font-weight: 900;
+    font-size: 20px;
+    border: 1px solid rgba(25, 62, 97, 0.2);;
+}
+#user-management{
+    background-color: #E3E7EA;
+}
+.user-management-btn{
+    background-color: var(--whitespace);
+    transition: background-color 0.5s;
+    padding-left: 3rem !important;
+}
+.user-management-btn:hover {
+    cursor: pointer;
+    background-color: rgba(25, 62, 97,0.1);
+}
+#removeUserModal{
+    top: 7rem;
+    left: 10rem;
+    position: absolute;
+
+}
+/* END ACCOUNT SETTINGS */
+
+
+/* REGISTRATION PAGE */
+
+#isAdminCheckbox{
+    max-width: 1rem;
+    margin-right: 0.8rem;
+}
+
+#adminAccountLbl{
+    margin-top: 1px;
+}
+
+/* END REGISTRATION PAGE */
+
+#stats-page-container h1{
+    color: var(--navbar);
+}
+
+
+/* JMODAL */
+.jmodal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 14rem; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.jmodal-content {
+  position: relative;
+  background-color: #fefefe;
+  margin: auto;
+  padding: 0;
+  /*border: 1px solid #888;*/
+  width: 28rem;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+  -webkit-animation-name: animatetop;
+  -webkit-animation-duration: 0.4s;
+  animation-name: animatetop;
+  animation-duration: 0.4s;
+  border-radius: 10px;
+}
+
+.jmodal-header, .jmodal-footer {
+    padding: 1rem 16px !important;
+    background-color: var(--whitespace);   
+}
+
+.jmodal-header {
+  border-bottom: 1px solid rgba(127, 129, 137,0.5);
+  border-radius: 10px 10px 0 0;
+}
+.jmodal-header h2{
+    margin-bottom: unset;
+    text-transform: uppercase;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--navbar);
+}
+
+.jmodal-body {padding: 2.5rem 16px;}
+
+
+.jmodal-footer {
+    border-top: 1px solid rgba(127, 129, 137,0.5);
+    border-radius: 0 0 10px 10px;
+}
+
+.close:hover,
+.close:focus {
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* Add Animation */
+@-webkit-keyframes animatetop {
+  from {top:-300px; opacity:0} 
+  to {top:0; opacity:1}
+}
+
+@keyframes animatetop {
+  from {top:-300px; opacity:0}
+  to {top:0; opacity:1}
+}
+
+/* END JMODAL */
+
+
+/* Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) {
+    .ticket-header h1{
+        font-size: 1.5rem;
+        margin-bottom: 0.5rem !important;
+    }
+}
+
+/* IPAD & LAPTOP */
+@media only screen and (min-width: 768px) {
+
+}
+
+/* DESKTOP */
+@media only screen and (min-width: 992px) {
+
+    /* NAVIGATION */
+
+    /* HOME PAGE */
+    
+    /* LOGIN PAGE */
+    
+
+    /* REGISTRATION PAGE */
+
+    
+}
+
+/* Extra large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+    .container {
+        max-width: 1260px;
+    }
+    .ticket-header h1{
+        font-size: 2rem;
+    }
+}
+
+
+/******FLASH MESSAGE******/
+.flash{
+    background-color: #28a745;
+    width: fit-content !important;
+    border-radius: 0.25rem !important;
+    color: white;
+    padding: 0.5rem;
+    margin-bottom: 0.5rem;
+}
