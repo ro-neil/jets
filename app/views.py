@@ -1382,16 +1382,16 @@ def reset_uploads_dir():
     else:
         print(f'\nIssued folder is empty!')  
 
-    files = getFilenames(archives)
-    if files != []:
-        print('\nMoving files from archives folder to uploads folder')
-        # Move files from issued folder to uploads folder
-        for file in files:
-            print(f'\t{file}')
-            os.rename(os.path.join(archives, file), os.path.join(uploads, file))
-        print('\nMoved files from archives folder to uploads folder')
-    else:
-        print(f'\nArchives folder is empty!')  
+    # files = getFilenames(archives)
+    # if files != []:
+    #     print('\nMoving files from archives folder to uploads folder')
+    #     # Move files from issued folder to uploads folder
+    #     for file in files:
+    #         print(f'\t{file}')
+    #         os.rename(os.path.join(archives, file), os.path.join(uploads, file))
+    #     print('\nMoved files from archives folder to uploads folder')
+    # else:
+    #     print(f'\nArchives folder is empty!')  
 
 def clear_db_table(table):
     results = db.session.query(table).all()
