@@ -1,9 +1,9 @@
 # The JamaicaEye Ticketing System `JETS`
-Promotional simulation
+### Promotional simulation
 
-# The University of the West Indies (Mona)
-# Capstone Project `Team JETS`
-Summer (2021)
+## The University of the West Indies (Mona)
+### Capstone Project `TEAM JETS`
+#### Summer (2021)
 
 Create a virtual environment and install the packages in your requirements file
 

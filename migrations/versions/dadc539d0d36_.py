@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: dde9d60420e5
+Revision ID: dadc539d0d36
 Revises: 
-Create Date: 2021-08-07 22:32:45.276290
+Create Date: 2021-08-11 08:43:00.353118
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'dde9d60420e5'
+revision = 'dadc539d0d36'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -63,6 +63,13 @@ def upgrade():
     sa.ForeignKeyConstraint(['offenceID'], ['Offence.code'], ),
     sa.PrimaryKeyConstraint('id')
     )
+    op.create_table('TrafficCam',
+    sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('validOffences', sa.String(length=20), nullable=False),
+    sa.Column('locationID', sa.Integer(), nullable=False),
+    sa.ForeignKeyConstraint(['locationID'], ['Location.id'], ondelete='CASCADE'),
+    sa.PrimaryKeyConstraint('id')
+    )
     op.create_table('VehicleOwner',
     sa.Column('trn', sa.String(length=10), autoincrement=False, nullable=False),
     sa.Column('fname', sa.String(length=25), nullable=False),
@@ -80,6 +87,15 @@ def upgrade():
     sa.Column('licenseType', sa.String(length=10), nullable=False),
     sa.ForeignKeyConstraint(['licenseplate'], ['Vehicle.licenseplate'], ondelete='CASCADE'),
     sa.PrimaryKeyConstraint('trn')
+    )
+    op.create_table('ArchivedTicket',
+    sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('incidentID', sa.Integer(), nullable=False),
+    sa.Column('datetime', sa.DateTime(), nullable=False),
+    sa.Column('status', sa.String(length=70), nullable=False),
+    sa.ForeignKeyConstraint(['incidentID'], ['Incident.id'], ),
+    sa.PrimaryKeyConstraint('id'),
+    sa.UniqueConstraint('incidentID')
     )
     op.create_table('FlaggedEmail',
     sa.Column('id', sa.Integer(), nullable=False),
@@ -120,7 +136,9 @@ def downgrade():
     op.drop_table('IssuedTicket')
     op.drop_table('FlaggedImage')
     op.drop_table('FlaggedEmail')
+    op.drop_table('ArchivedTicket')
     op.drop_table('VehicleOwner')
+    op.drop_table('TrafficCam')
     op.drop_table('Incident')
     op.drop_table('Vehicle')
     op.drop_table('User')

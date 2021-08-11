@@ -20,8 +20,6 @@ import random
 from sqlalchemy import and_
 from functools import wraps
 from flask.helpers import send_from_directory
-from app import mail
-from flask_mail import Message
 
 
 USR_DATE_FORMAT = "%b %d, %Y"
@@ -145,7 +143,6 @@ def deregister():
 @app.route("/api/auth/login", methods=["POST"])
 def login():
     """ Login a user """
-
     form = LoginForm()
     if form.validate_on_submit():
         # include security checks #
@@ -208,7 +205,7 @@ def getOffenderSnapshot():
 def simulateOffense():  # pass image name after viewing on front end
     """ Simulate an Offense """
 
-    print(f'\nGetting random traffic cam data for {selectedImage}')
+    print(f'\nGetting random traffic cam data')
     # SELECT A RANDOM TRAFFIC CAMERA AND IMAGE. QUERY OFFENCE TABLE FOR THE SELECTED VALID CAM OFFENCE
     trafficCam = get_random_record(TrafficCam)
     offenceCode = random.choice(trafficCam.validOffences.split())    # Extract the list of valid offences for the selected camera and select a random choice
@@ -251,7 +248,7 @@ def simulateOffense():  # pass image name after viewing on front end
     # Parse Image
     try:
         print(f'\nParsing Image: {image}\n')
-        registrationNumber = image #parseImage(image)
+        registrationNumber = image.split('.')[0]  #parseImage(image)
         print(f'\nRegistrationNumber: {registrationNumber}\n')
     except Exception:
         ticketStatus = 'IMAGE PROCESSING ERROR'
@@ -294,7 +291,7 @@ def simulateOffense():  # pass image name after viewing on front end
         emailAddress = ownerObj['email']
         if emailAddress != '':
             incidentID = incidentObj['id']
-            sendEmail(f'http://localhost:8080/issued/{incidentID}' ,[emailAddress])
+            #sendEmail(f'http://localhost:8080/issued/{incidentID}' ,[emailAddress])
             ticketStatus = f"ISSUED VIA ({emailAddress})"
             print(f"\nTICKET STATUS: {ticketStatus}")
             # Create the Ticket and save to JETS' Database/Ticket table
@@ -670,7 +667,7 @@ def issue_via_upload():
         # Parse Image
         try:
             print(f'\nParsing Image: {imageName}\n')
-            registrationNumber = imageName #parseImage(imageName)
+            registrationNumber = imageName.split('.')[0]  #parseImage(imageName)
             print(f'\nRegistrationNumber: {registrationNumber}\n')
         except Exception:
             ticketStatus = 'IMAGE PROCESSING ERROR'
@@ -713,7 +710,7 @@ def issue_via_upload():
             emailAddress = ownerObj['email']
             if emailAddress != '':
                 incidentID = incidentObj['id']
-                sendEmail(f'http://localhost:8080/issued/{incidentID}',[emailAddress])
+                #sendEmail(f'http://localhost:8080/issued/{incidentID}',[emailAddress])
                 ticketStatus = f"ISSUED VIA ({emailAddress})"
                 print(f"\nTICKET STATUS: {ticketStatus}")
                 # Create the Ticket and save to JETS' Database/Ticket table
@@ -810,7 +807,7 @@ def issueFlaggedImage():
     emailAddress = ownerObj['email']
     if emailAddress != '':
         incidentID = incidentObj['id']
-        sendEmail(f'http://localhost:8080/issued/{incidentID}',[emailAddress])
+        #sendEmail(f'http://localhost:8080/issued/{incidentID}',[emailAddress])
         ticketStatus = f"ISSUED VIA ({emailAddress})"
         print(f"\nTICKET STATUS: {ticketStatus}")
         # Create the Ticket and save to JETS' Database/Ticket table
@@ -1344,8 +1341,8 @@ def resetSimulation():
         clear_db_table(IssuedTicket)
         clear_db_table(FlaggedImage)
         clear_db_table(FlaggedEmail)
-        clear_db_table(Incident)
         clear_db_table(ArchivedTicket)
+        clear_db_table(Incident)
         print('\n')
         return jsonify({'message':'Simulation data has been reset'})
     except Exception as e:
@@ -1374,7 +1371,7 @@ def reset_uploads_dir():
     if files != []:
         print('\nMoving files from issued folder to uploads folder')
         # Move files from issued folder to uploads folder
-        for file in getFilenames(issued):
+        for file in files:
             print(f'\t{file}')
             os.rename(os.path.join(issued, file), os.path.join(uploads, file))
         print('\nMoved files from issued folder to uploads folder')
@@ -1385,7 +1382,7 @@ def reset_uploads_dir():
     if files != []:
         print('\nMoving files from archives folder to uploads folder')
         # Move files from issued folder to uploads folder
-        for file in getFilenames(issued):
+        for file in files:
             print(f'\t{file}')
             os.rename(os.path.join(archives, file), os.path.join(uploads, file))
         print('\nMoved files from archives folder to uploads folder')
@@ -1656,7 +1653,7 @@ def populateDatabase():
     print('\nPOPULATING USER DB...\n')
 
 
-    '''admin = User('Damion Lawson','admin','True')
+    admin = User('Damion Lawson','admin','True')
 
     officer1 = User('Chris Russell','password123')
     officer2 = User('Andrew Black','password123')
@@ -1750,7 +1747,7 @@ def populateDatabase():
     db.session.add(location7)
 
     db.session.commit()
-    print('ADDED LOCATIONS TO DB!')'''
+    print('ADDED LOCATIONS TO DB!')
 
     cam1 = TrafficCam('F100',1)   # valid offences & location
     cam2 = TrafficCam('F100',2)   # valid offences & location
