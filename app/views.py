@@ -1351,12 +1351,14 @@ def resetSimulation():
 def reset_uploads_dir():
     '''Move flagged and issued files to uploads directory'''
 
+    print('RESETTING DIRECTORIES')
     flagged = app.config['FLAGGED_FOLDER']
     issued = app.config['ISSUED_FOLDER']
     archives = app.config['ARCHIVES_FOLDER']
     uploads = app.config['UPLOADS_FOLDER']
 
     files = getFilenames(flagged)
+    print('Flagged Files',files)
     if files != []:
         print('\nMoving files from flagged folder to uploads folder')
         # Move files from flagged folder to uploads folder
@@ -1367,6 +1369,7 @@ def reset_uploads_dir():
         print(f'\nFlagged folder is empty!')  
 
     files = getFilenames(issued)
+    print('Issued Files',files)
     if files != []:
         print('\nMoving files from issued folder to uploads folder')
         # Move files from issued folder to uploads folder
